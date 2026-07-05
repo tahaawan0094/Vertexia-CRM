@@ -1,4 +1,3 @@
-'use client'
 import { createClient } from '@/lib/supabase/server'
 import type { Metadata } from 'next'
 import Link from 'next/link'
@@ -65,6 +64,22 @@ export default async function DashboardPage() {
 
   return (
     <div className="page-container animate-fade-in">
+      {/* Injecting pure CSS for the hover effect safely without JS event handlers */}
+      <style>{`
+        .recent-activity-item {
+          display: flex;
+          align-items: center;
+          gap: 0.75rem;
+          padding: 0.5rem;
+          border-radius: var(--radius);
+          text-decoration: none;
+          transition: background 0.15s;
+        }
+        .recent-activity-item:hover {
+          background-color: var(--surface-2) !important;
+        }
+      `}</style>
+
       {/* Header */}
       <div style={{ marginBottom: '1.5rem' }}>
         <h1 style={{ fontSize: '1.5rem', fontWeight: '700', color: 'var(--foreground)', margin: 0 }}>
@@ -208,17 +223,7 @@ export default async function DashboardPage() {
                 <Link
                   key={log.id}
                   href={`/leads/${log.lead_id}`}
-                  style={{
-                    display: 'flex',
-                    alignItems: 'center',
-                    gap: '0.75rem',
-                    padding: '0.5rem',
-                    borderRadius: 'var(--radius)',
-                    textDecoration: 'none',
-                    transition: 'background 0.15s',
-                  }}
-                  onMouseEnter={e => (e.currentTarget.style.background = 'var(--surface-2)')}
-                  onMouseLeave={e => (e.currentTarget.style.background = 'transparent')}
+                  className="recent-activity-item"
                 >
                   <div style={{
                     width: '8px',
